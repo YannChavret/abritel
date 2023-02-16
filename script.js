@@ -174,3 +174,51 @@ async function getLocationType() {
       "Voir les " + " " + iterator.nb + " " + iterator.name;
   }
 }
+
+// API Reinsurance
+
+window.addEventListener("load", async (event) => {
+  console.log("La page est complètement chargée");
+  await getReinsurance();
+});
+
+async function getReinsurance() {
+  let listReinsurance = document.querySelector(".liste_reassurance");
+
+  let result = await fetch(
+    "https://simplon-brief-htmlcssjs.vercel.app/api/reinsurance"
+  );
+  let data = await result.json();
+
+  for (const iterator of data) {
+    let elementReinsurance = document.createElement("li");
+    elementReinsurance.classList.add("element_reassurance");
+    listReinsurance.appendChild(elementReinsurance);
+
+    let iconeReinsurance = document.createElement("div");
+    iconeReinsurance.classList.add("icone_reassurance");
+    elementReinsurance.appendChild(iconeReinsurance);
+
+    let imgIcone = document.createElement("img");
+    imgIcone.classList.add("img_reinsurance");
+    iconeReinsurance.appendChild(imgIcone);
+
+    let textReinsurance = document.createElement("div");
+    textReinsurance.classList.add("texte_reassurance");
+    elementReinsurance.appendChild(textReinsurance);
+
+    let titleReinsurance = document.createElement("h3");
+    titleReinsurance.classList.add("titre_reassurance");
+    textReinsurance.appendChild(titleReinsurance);
+
+    let decriptionReinsurance = document.createElement("span");
+    decriptionReinsurance.classList.add("description_reassurance");
+    textReinsurance.appendChild(decriptionReinsurance);
+
+    imgIcone.setAttribute("src", urlAPI + "/" + iterator.img);
+    titleReinsurance.innerHTML = iterator.name;
+    decriptionReinsurance.innerHTML = iterator.description;
+
+    console.log(data);
+  }
+}
